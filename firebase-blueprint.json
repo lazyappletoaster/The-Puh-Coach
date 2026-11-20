@@ -1,0 +1,182 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Learner account stats and streak state for The Puh Coach",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "xp": {
+          "type": "integer"
+        },
+        "streak": {
+          "type": "integer"
+        },
+        "lastPracticeDate": {
+          "type": "string",
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "hearts": {
+          "type": "integer"
+        },
+        "currentLevel": {
+          "type": "integer"
+        },
+        "completedLessonsCount": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "xp",
+        "streak",
+        "hearts",
+        "currentLevel",
+        "completedLessonsCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LessonProgress": {
+      "title": "LessonProgress",
+      "description": "Per-lesson completion state and best score for a learner",
+      "type": "object",
+      "properties": {
+        "lessonId": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 16,
+          "pattern": "^L(10|[1-9])-[0-9]{2}$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "levelId": {
+          "type": "integer"
+        },
+        "bestScore": {
+          "type": "integer"
+        },
+        "attempts": {
+          "type": "integer"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "lastFeedbackSummary": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "lessonId",
+        "userId",
+        "levelId",
+        "bestScore",
+        "attempts",
+        "completed",
+        "updatedAt"
+      ]
+    },
+    "PracticeSession": {
+      "title": "PracticeSession",
+      "description": "Recorded voice or text speaking coaching submission and AI evaluation summary",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "lessonId": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 16,
+          "pattern": "^L(10|[1-9])-[0-9]{2}$"
+        },
+        "lessonTitle": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["voice", "text"]
+        },
+        "transcriptOrText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "score": {
+          "type": "integer"
+        },
+        "coachSummary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "lessonId",
+        "lessonTitle",
+        "mode",
+        "transcriptOrText",
+        "score",
+        "coachSummary",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Learner profile and aggregate XP/streak/level progress"
+    },
+    "/users/{userId}/lessonProgress/{lessonId}": {
+      "schema": { "$ref": "#/entities/LessonProgress" },
+      "description": "Per-lesson completion status and best score"
+    },
+    "/users/{userId}/practiceSessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/PracticeSession" },
+      "description": "Individual AI voice/text coaching practice log entries"
+    }
+  }
+}

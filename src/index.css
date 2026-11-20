@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #FAFBF9;
+    color: #0F172A;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.duo-btn-emerald {
+  box-shadow: 0 4px 0 0 #047857;
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 120ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.duo-btn-emerald:hover:not(:disabled) {
+  background-color: #059669;
+}
+.duo-btn-emerald:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 #047857;
+}
+
+.duo-btn-slate {
+  box-shadow: 0 4px 0 0 #CBD5E1;
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 120ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.duo-btn-slate:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 #CBD5E1;
+}
+
+.duo-btn-amber {
+  box-shadow: 0 4px 0 0 #B45309;
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 120ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.duo-btn-amber:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 #B45309;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duo-btn-emerald,
+  .duo-btn-slate,
+  .duo-btn-amber {
+    transition: none;
+  }
+}

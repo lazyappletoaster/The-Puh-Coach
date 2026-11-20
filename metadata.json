@@ -1,0 +1,6 @@
+{
+  "name": "The Puh Coach",
+  "description": "Duolingo-style public speaking and social communication coach for men speaking with women, featuring 10 scientifically grounded levels (250 named lessons) and personalized AI voice and text feedback.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
